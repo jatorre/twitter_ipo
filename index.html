@@ -1,0 +1,126 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Twitter and CartoDB &mdash; 2013 NBA Playoffs</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="robots">
+
+  <!-- Hello metas -->
+  <meta name="keywords" content="twitter, nba, san antonio, miami, cartodb, visualization, data, map, torque, big data">
+  <meta name="description" content="Twitter and CartoDB ">
+  <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+  <meta name="author" content="CartoDB.com">
+  <meta name="DC.title" content="">
+  <meta property="og:title" content="Twitter and CartoDB">
+  <meta property="og:description" content=""> 
+  <meta property="og:type" content="Visualization">
+  <meta property="og:image" content="">
+
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
+    <![endif]-->
+  <link rel="stylesheet" href="styles/main.css">
+
+  <script src="scripts/vendor/modernizr.js"></script>
+  <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header map_header clearfix">
+    <a href="http://cartodb.com/" class="logo"></a>
+
+    <h1 class="title"></h1>
+    <p class="subtitle"></p>
+  </header>
+
+  <!-- Switch -->
+  <nav id="switch" class="switch">
+    <ul class="menu">
+      <li class="selected"><a href="#" id="static">Static</a></li><li><a href="#" id="dynamic">Dynamic</a></li>
+    </ul>
+  </nav>
+
+  <!-- Slider -->
+  <div id="slider_wrapper" class="slider_wrapper">
+    <div id="slider" class="slider"></div>
+    <p id="hour" class="hour">0:00<br /><span>14/6/2013</span></p>
+  </div>
+
+  <!-- Map -->
+  <div id="map" class="map"></div>
+
+  <!-- Google Analytics -->
+  <script>
+    var _gaq=[['_setAccount','UA-20934186-3'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src='https://www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+
+  <script type="text/javascript">
+    window.AppData = window.AppData || {};
+  </script>
+
+  <script src="config.json"></script>
+  <script src="scripts/vendor/jquery-ui-1.10.2.custom.js"></script>
+  <script src="scripts/leaflet_tileloader_mixin.js"></script>
+  <script src="scripts/canvas_layer.js"></script>
+  <script src="scripts/time_layer.js"></script>
+
+  <script src="scripts/events.js"></script>
+  <script src="scripts/slider.js"></script>
+  <script src="scripts/switch.js"></script>
+  <script src="scripts/map.js"></script>
+  <script src="scripts/app.js"></script>
+
+  <script type="text/javascript">
+
+
+
+      var dragged = false,
+         clicked = false,
+         stopped = true,
+         valueStart = 0;
+      var hash = location.hash.split("#").pop();
+
+
+      window.AppData.DYNAMIC_MAP = {
+        user:CONFIG.dynamic_map.user,
+        table:CONFIG.dynamic_map.table,
+        column:CONFIG.dynamic_map.column,
+        steps: CONFIG.dynamic_map.steps,
+        step: CONFIG.dynamic_map.step,
+        resolution:CONFIG.dynamic_map.resolution,
+        countby:CONFIG.dynamic_map.countby,
+        cdb_url:CONFIG.cdn_url
+      };
+      window.AppData.ANIMATION_SCALE = CONFIG.dynamic_map.animation_scale;
+      window.AppData.BALLS_COLOR = CONFIG.dynamic_map.balls_color;
+      window.AppData.BALL_SIZE_GAIN = CONFIG.dynamic_map.ball_size_gain;
+      window.AppData.BALL_ANIMATION_SPEED = CONFIG.dynamic_map.ball_animation_speed;
+
+      window.AppData.STATIC_MAP = CONFIG.static_map.vizjson;
+
+      $('h1.title').text(CONFIG.webpage.title);
+      $('p.subtitle').text(CONFIG.webpage.subtitle);
+
+      var sql = new cartodb.SQL({ user: CONFIG.dynamic_map.user });
+          sql.execute("SELECT max(date_part('epoch', {{column}}))::int as end_date, min(date_part('epoch', {{column}}))::int -3600 as start_date FROM {{table}}", {table:CONFIG.dynamic_map.table, column:CONFIG.dynamic_map.column})
+          .done(function(data) {
+            window.AppData.START_DATE = data.rows[0].start_date; // one hour before
+            window.AppData.END_DATE = data.rows[0].end_date;
+            if(hash.length === 0) {
+              App.initialize();
+            } else if(hash.split("/")[0] === "dynamic") {
+              App.initialize({mode: "dynamic"});
+            } else if(hash.split("/")[0] === "static") {
+              App.initialize();
+            }
+          })
+
+  </script>
+</body>
+</html>

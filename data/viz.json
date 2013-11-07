@@ -1,0 +1,113 @@
+vizjson({
+  "id": "271acd62-0103-11e3-a6ca-6805ca04cef1",
+  "version": "0.1.0",
+  "title": "mtv test",
+  "description": null,
+  "url": null,
+  "map_provider": "leaflet",
+  "bounds": [
+    [-85, -179],
+    [85, 179]
+  ],
+  "center": "[14.093957177836236, -83.408203125]",
+  "zoom": 3,
+  "updated_at": "2013-08-09T19:44:49+02:00",
+  "layers": [{
+    "options": {
+      "visible": true,
+      "type": "Tiled",
+      "urlTemplate": "http://{s}.tiles.cartocdn.com/viz2/tiles/dark_cartodb_basemap/{z}/{x}/{y}.png",
+      "attribution": null,
+      "maxZoom": 21,
+      "minZoom": 0,
+      "name": "Custom basemap 10",
+      "className": "httpstilescartocdncomviztilesdarkcartodbbasemapzxypng",
+      "order": 0,
+      "id": 72593
+    },
+    "infowindow": null,
+    "id": 72593,
+    "order": 0,
+    "type": "tiled"
+  }, {
+    "type": "layergroup",
+    "options": {
+      "user_name": "osm2",
+      "tiler_protocol": "http",
+      "tiler_domain": "cartodb.com",
+      "tiler_port": "80",
+      "sql_api_protocol": "https",
+      "sql_api_domain": "cartodb.com",
+      "sql_api_endpoint": "/api/v1/sql",
+      "sql_api_port": 443,
+      "cdn_url": {
+        "http": "tiles.cartocdn.com",
+        "https": "d3pu9mtm6f0hk5.cloudfront.net"
+      },
+      "layer_definition": {
+        "stat_tag": "271acd62-0103-11e3-a6ca-6805ca04cef1",
+        "version": "1.0.1",
+        "layers": [{
+          "id": 72594,
+          "type": "CartoDB",
+          "infowindow": {
+            "fields": [{
+              "name": "timestamp",
+              "title": true,
+              "position": 0
+            }, {
+              "name": "latitude",
+              "title": true,
+              "position": 1
+            }, {
+              "name": "longitude",
+              "title": true,
+              "position": 2
+            }, {
+              "name": "retweets",
+              "title": true,
+              "position": 3
+            }],
+            "template_name": "table/views/infowindow_light",
+            "template": "<div class=\"cartodb-popup\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n"
+          },
+          "legend": {
+            "type": null,
+            "items": [{
+              "name": "Left label",
+              "value": "left label",
+              "type": "text"
+            }, {
+              "name": "Right label",
+              "value": "right label",
+              "type": "text"
+            }, {
+              "name": "Color",
+              "value": "#FFCC00",
+              "type": "color"
+            }]
+          },
+          "order": 2,
+          "options": {
+            "sql": "select * from mtvhottest_cleaned",
+            "layer_name": "mtvhottest_cleaned",
+            "cartocss": "\n#mtvhottest_cleaned::intensity{\n  [retweets<=3000] {\n        first/marker-width: 50;\n    second/marker-width: 50;\n    third/marker-width: 30;\n    fourth/marker-width: 20;\n  }\n    [retweets<=20] {\n    first/marker-width: 40;\n    second/marker-width: 40;\n    third/marker-width: 20;\n    fourth/marker-width: 15;\n  }\n  [retweets<=10] {\n    first/marker-width: 30;\n    second/marker-width: 30;\n    third/marker-width: 15;\n    fourth/marker-width: 12;\n  }\n  [retweets<=5] {\n    first/marker-width: 20;\n    second/marker-width: 20;\n    third/marker-width: 10;\n    fourth/marker-width: 5;\n    \n  }\n    first/marker-fill: #FF01FF;\n    first/marker-opacity: 0.01;\n    first/marker-line-width: 0;\n    first/marker-placement: point;\n    first/marker-allow-overlap: true;\n    first/marker-comp-op: lighten;\n  \n    second/marker-fill: #009933;\n    second/marker-opacity: 0.02;\n    second/marker-line-width: 0;\n    second/marker-placement: point;\n    second/marker-allow-overlap: true;\n    second/marker-comp-op: lighten;\n  \n    third/marker-fill: #FF7936;\n    third/marker-opacity: 0.04;\n    third/marker-line-width: 0;\n    third/marker-placement: point;\n    third/marker-allow-overlap: true;\n    third/marker-comp-op: lighten;\n  \n    fourth/marker-fill: #FFEE00;\n    fourth/marker-opacity: 0.04;\n    fourth/marker-line-width: 0;\n    fourth/marker-placement: point;\n    fourth/marker-allow-overlap: true;\n    fourth/marker-comp-op: lighten;\n}\n\n#mtvhottest_cleaned::point[zoom >= 11] {\n    marker-fill: #FF01FF;\n    marker-opacity: 0.8;\n    marker-width: 8;\n    marker-line-width: 2;\n \tmarker-line-color: #D9D732;\n  \tmarker-line-opacity: 0.4;\n    marker-placement: point;\n    marker-allow-overlap: true;\n}",
+            "cartocss_version": "2.1.1",
+            "interactivity": "cartodb_id"
+          }
+        }]
+      }
+    }
+  }],
+  "overlays": [{
+    "type": "zoom",
+    "order": null,
+    "options": null,
+    "template": "<a class=\"zoom_in\">+</a><a class=\"zoom_out\">-</a>"
+  }, {
+    "type": "loader",
+    "order": null,
+    "options": null,
+    "template": "<div class=\"loader\"></div>"
+  }]
+})

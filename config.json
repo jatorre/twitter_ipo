@@ -1,0 +1,23 @@
+CONFIG = {
+  webpage: {
+    title: " Twitter’s IPO: Nov 7, 2013 ",
+    subtile: " Circles sized by retweets "
+  },
+  static_map: {
+    vizjson: " http://simonrogers.cartodb.com/api/v2/viz/97b2b390-47fe-11e3-a5bc-6805ca04cef1/viz.json "
+  },
+  dynamic_map: {
+      user:'simonrogers',
+      table:'twitteripo2',
+      column:' newtime ',
+      steps: 1250,
+      step: 15*60,
+      resolution:1,
+      countby:'sum(i.rts + 10)',
+      animation_scale: 10,
+      ball_size_gain: 0.2,
+      ball_animation_speed: 8,
+      balls_color: "rgba(0,172,238, .50)"
+  },
+  cdn_url: "0.tiles.cartocdn.com"
+}
